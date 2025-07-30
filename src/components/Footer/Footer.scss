@@ -1,0 +1,45 @@
+@use "../../assets/styles/global/mixins" as *;
+
+.footer {
+  &__wrapper {
+    padding: 40px 0;
+    display: flex;
+    justify-content: flex-end;
+
+    @include vp-mobile {
+      justify-content: start;
+    }
+  }
+
+  &__socials {
+    @include flex-align;
+    gap: 24px;
+
+    @media (max-width: 768px) {
+      gap: 16px;
+    }
+
+    @media (max-width: 425px) {
+      gap: 12px;
+    }
+
+
+
+    &-link {
+      @include flex-center
+    }
+
+    &-link,
+    &-icon {
+      @media (max-width: 768px) {
+        width: 32px;
+        height: 32px;
+      }
+
+      @media (max-width: 425px) {
+        width: 28px;
+        height: 28px;
+      }
+    }
+  }
+}

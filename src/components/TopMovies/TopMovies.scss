@@ -1,0 +1,31 @@
+@use "../../assets/styles/global/variables" as *;
+@use "../../assets/styles/global/mixins" as *;
+
+.top-movies {
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 64px 40px;
+
+    @media (max-width: 1025px) {
+      display: none;
+    }
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
+    color: $color-white;
+    margin: 0 0 64px 0;
+
+    @media (max-width: 1025px) {
+      margin: 0 0 40px 0;
+    }
+  }
+
+  .top-movies__slide {
+    @include flex-align;
+    min-height: 336px;
+  }
+}

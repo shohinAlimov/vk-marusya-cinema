@@ -1,0 +1,229 @@
+@use "../../assets/styles/global/mixins" as *;
+@use "../../assets/styles/global/variables.scss" as *;
+@use "../../assets/styles/global/btn.scss" as *;
+
+.film-banner {
+  padding: 32px 0 0;
+
+  --btn-padding: 16px 38px;
+
+  @include vp-tablet {
+    padding: 10px 0;
+  }
+
+  @include vp-mobile {
+    padding: 0;
+  }
+
+  &__wrapper {
+    display: grid;
+    grid-template-columns: auto 680px;
+    align-items: center;
+    gap: 20px;
+
+    @media (max-width: 1300px) {
+      grid-template-columns: auto 580px;
+    }
+
+    @media (max-width: 1200px) {
+      grid-template-columns: auto 450px;
+      gap: 50px;
+    }
+
+    @media (max-width: 1100px) {
+      grid-template-columns: auto 350px;
+    }
+
+    @media (max-width: 891px) {
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 24px;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 0 0 60px 0;
+
+    @media (max-width: 1200px) {
+      margin: 0 0 30px 0;
+    }
+
+    @include vp-mobile {
+      gap: 12px;
+      margin: 0 0 32px 0;
+    }
+  }
+
+  &__overlay {
+    @include flex-align;
+    gap: 16px;
+  }
+
+  &__rating {
+    @include flex-align;
+    gap: 4px;
+    padding: 4px 12px;
+    background-color: #308E21;
+    border-radius: 16px;
+    color: #FFFFFF;
+
+    &-icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    &-value {
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 24px;
+      user-select: none;
+    }
+  }
+
+  &__notes {
+    color: $color-white-07;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+    user-select: none;
+
+    @include vp-mobile {
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 56px;
+    color: $color-white;
+
+    @media (max-width: 1200px) {
+      font-size: 40px;
+      line-height: 46px;
+    }
+
+    @include vp-mobile {
+      font-size: 24px;
+      line-height: 32px;
+    }
+  }
+
+  &__plot {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    color: $color-white-07;
+
+    @media (max-width: 1200px) {
+      font-size: 20px;
+      line-height: 28px;
+    }
+
+    @media (max-width: 1025px) {
+      font-size: 18px;
+      line-height: 22px;
+    }
+
+    @include vp-mobile {
+      font-size: 18px;
+      line-height: 24px;
+    }
+  }
+
+  &__actions {
+    @include flex-align;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    @media (max-width: 580px) {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+
+      &--row {
+        display: flex;
+      }
+    }
+  }
+
+
+  &__btn-trailer {
+    @media (max-width:580px) {
+      grid-column: 1/4;
+    }
+  }
+
+  &__poster {
+    width: 100%;
+    max-height: 552px;
+    object-fit: cover;
+    border-radius: 16px;
+
+    @media (max-width: 1100px) {
+      max-height: 450px;
+    }
+
+    @include vp-mobile {
+      max-height: 234px;
+    }
+  }
+
+  // Состояния загрузки и ошибки
+  &__loader,
+  &__error,
+  &__no-movie {
+    @include flex-center;
+    flex-direction: column;
+    min-height: 400px;
+    text-align: center;
+    color: $color-white;
+  }
+
+  &__error p {
+    margin: 0 0 15px 0;
+  }
+
+
+  &__btn {
+    @include flex-center;
+    padding: 16px 22px;
+    border: none;
+    background-color: $color-secondary;
+    border-radius: 28px;
+
+    & svg path {
+      fill: transparent;
+      stroke: $color-white;
+      transition: fill 0.3s ease, stroke 0.3s ease;
+    }
+
+    &--active,
+    &:hover {
+      & svg path {
+        fill: $color-active;
+        stroke: $color-active;
+      }
+    }
+  }
+
+  &__error-title {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32px;
+    color: #FF7575;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  &__error-value {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+    color: #FF7575;
+    text-align: center;
+  }
+}

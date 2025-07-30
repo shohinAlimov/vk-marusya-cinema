@@ -1,0 +1,48 @@
+@use "../../assets/styles/global/variables" as *;
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 16px;
+  color: $color-white;
+
+  &--low {
+    background-color: $color-rating-low;
+  }
+
+  &--medium {
+    background-color: $color-rating-medium;
+  }
+
+  &--high {
+    background-color: $color-rating-high;
+  }
+
+  &--small {
+    padding: 2px 8px;
+
+    & .rating__icon {
+      width: 10px;
+      height: 10px;
+    }
+
+    & .rating__value {
+      font-size: 12px;
+      line-height: 16px;
+    }
+  }
+
+  &-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  &-value {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+    user-select: none;
+  }
+}

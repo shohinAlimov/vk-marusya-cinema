@@ -1,0 +1,24 @@
+@use "../../styles/global/variables" as *;
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-align {
+  display: flex;
+  align-items: center;
+}
+
+@mixin vp-tablet {
+  @media (max-width: #{$vp-tablet}) {
+    @content;
+  }
+}
+
+@mixin vp-mobile {
+  @media (max-width: #{$vp-mobile}) {
+    @content;
+  }
+}

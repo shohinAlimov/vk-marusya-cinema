@@ -1,0 +1,61 @@
+  @use "../global/variables" as *;
+
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+    border: none;
+    background-color: transparent;
+
+    cursor: pointer;
+
+    &--primary,
+    &--secondary {
+      padding: var(--btn-padding, 16px 48px);
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 24px;
+      border-radius: 28px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    &--primary {
+      background-color: $color-primary;
+      color: $color-white;
+
+      &:hover,
+      &:focus-visible {
+        background-color: $color-primary-hover;
+        color: $color-white;
+      }
+
+      &:disabled {
+        background-color: $color-primary-disabled;
+        color: $color-white-05;
+      }
+
+    }
+
+
+    &--secondary {
+      background-color: $color-secondary;
+      color: $color-white;
+      border: 1px solid rgba(0, 0, 0, 0.4);
+
+      &:hover {
+        background-color: $color-white;
+        color: $color-black;
+      }
+
+      &:disabled {
+        background-color: $color-secondary-disabled;
+        color: rgba(0, 0, 0, 0.4);
+      }
+
+      &-S {
+        padding: 16px 22px;
+      }
+    }
+  }

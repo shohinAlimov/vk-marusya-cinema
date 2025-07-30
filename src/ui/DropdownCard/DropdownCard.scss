@@ -1,0 +1,70 @@
+@use "../../assets/styles/global/variables" as *;
+
+.dropdown-card {
+  display: flex;
+  gap: 16px;
+  padding: 20px 8px;
+  cursor: pointer;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: border 0.3s ease;
+  height: 100%;
+  background-color: $color-secondary;
+
+  &:hover {
+    border: 1px solid $color-white-05;
+  }
+
+  @media (max-width:500px) {
+    flex-direction: column;
+  }
+
+  &__poster {
+    width: 40px;
+    height: 52px;
+    border-radius: 4px;
+    object-fit: cover;
+
+    @media (max-width: 500px) {
+      height: 206px;
+      width: 158px;
+    }
+  }
+
+  &__top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 8px 0;
+
+    @media (max-width: 500px) {
+      flex-wrap: wrap;
+    }
+  }
+
+  &__notes {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    user-select: none;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  &__genres {
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+
+    @media (max-width: 1025px) {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+}

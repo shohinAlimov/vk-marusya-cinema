@@ -1,0 +1,10 @@
+@use "../../assets/styles/global/variables" as *;
+
+.home-page {
+  min-height: 100vh;
+  background: $color-home-gradient;
+
+  &__top-section {
+    padding: 40px 0;
+  }
+}

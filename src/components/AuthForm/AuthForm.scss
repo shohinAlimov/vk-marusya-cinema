@@ -1,0 +1,89 @@
+@use "../../assets/styles/global/variables" as *;
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  &__error {
+    color: $color-error;
+    font-size: 14px;
+    font-weight: 700;
+    display: block;
+    margin: 0 0 12px 0;
+  }
+
+  &__field--last {
+    margin: 0 0 12px 0;
+  }
+
+  &__submit {
+    margin: 0 0 24px 0;
+  }
+}
+
+.custom-input {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  &--error {
+
+    .custom-input__field,
+    .custom-input__field:hover,
+    .custom-input__field:focus-visible {
+      border-color: $color-error;
+    }
+
+    & input~.custom-input__icon {
+      color: $color-error;
+    }
+
+    // Переопределяем hover, чтобы не был синим
+    .custom-input__field:hover~.custom-input__icon,
+    .custom-input__field:focus~.custom-input__icon {
+      color: $color-error;
+    }
+  }
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(0, 0, 0, 0.4);
+    transition: color 0.3s ease;
+  }
+
+  & input:hover~.custom-input__icon,
+  & input:focus~.custom-input__icon {
+    color: $color-active;
+  }
+
+  & input {
+    padding: 16px 16px 16px 52px;
+    border: 1px solid;
+    border-color: rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+    transition: border-color 0.3s ease;
+
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.4);
+    }
+
+    &:hover,
+    &:focus-visible {
+      border-color: $color-active;
+    }
+  }
+
+  &__error {
+    color: $color-error;
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,40 @@
+/* Color Palette */
+$color-white: #FFFFFF;
+$color-black: #000000;
+$color-main-background: #0f0f23;
+$color-heliotrope: #DC5DFC;
+$color-slate-blue: #6A5DC2;
+
+/* Gradient */
+$color-home-gradient: linear-gradient(180deg, #0f0f23 0%, #1a1a2e 100%);
+
+/* Inputs & Focus-visible & Hover */
+$color-active: #B4A9FF;
+
+/* Error */
+$color-error: #FF7575;
+
+/* Opacities White*/
+$color-white-05: rgba(255, 255, 255, 0.5);
+$color-white-07: rgba(255, 255, 255, 0.7);
+
+/* Opacities Black */
+$color-black-04: rgba(0, 0, 0, 0.4);
+
+/* Button Primary */
+$color-primary: #67A5EB;
+$color-primary-hover: #3469A5;
+$color-primary-disabled: #45526E;
+
+/* Rating Colors */
+$color-rating-low: #777777;
+$color-rating-medium: #308E21;
+$color-rating-high: #A59400;
+
+/* Button Secondary */
+$color-secondary: #393B3C;
+$color-secondary-disabled: #747474;
+
+/* Breakpoints */
+$vp-tablet: 769px;
+$vp-mobile: 376px;

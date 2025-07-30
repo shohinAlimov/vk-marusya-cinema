@@ -1,0 +1,95 @@
+@use "../../assets/styles/global/variables" as *;
+@use "../../assets/styles/global/mixins" as *;
+
+.modal {
+  &__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000000000;
+  }
+
+  &__content {
+    position: relative;
+    background-color: $color-white;
+    padding: 64px 40px;
+    border-radius: 24px;
+    width: 100%;
+    max-width: 420px;
+
+    @media (max-width: 550px) {
+      max-width: 335px;
+      padding: 32px 20px;
+    }
+  }
+
+  &__logo-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 40px 0;
+
+    @media (max-width:550px) {
+      margin: 0 0 32px 0;
+    }
+
+    & svg {
+      @media (max-width:550px) {
+        width: 132px;
+        height: 30px;
+      }
+    }
+  }
+
+  &__close {
+    &-btn {
+      position: absolute;
+      top: 0;
+      right: -72px;
+      background-color: $color-white;
+      padding: 12px;
+      border-radius: 50%;
+      height: 48px;
+      width: 48px;
+      border: none;
+      cursor: pointer;
+
+      @include vp-tablet {
+        top: 8px;
+        right: 8px;
+      }
+    }
+
+    &-icon {
+      width: 24px;
+      height: 24px;
+      color: $color-black;
+    }
+  }
+
+  &__link {
+    display: flex;
+    cursor: pointer;
+    margin: 0 auto;
+
+    &:hover span,
+    &:focus-visible span {
+      color: $color-active;
+    }
+
+    & span {
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 24px;
+      color: $color-black;
+      transition: color 0.3s ease;
+    }
+
+  }
+}

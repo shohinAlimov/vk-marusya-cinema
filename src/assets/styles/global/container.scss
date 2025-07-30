@@ -1,0 +1,15 @@
+@use "../global/mixins" as *;
+
+.container {
+  max-width: 1320px;
+  padding: 0 50px;
+  margin: 0 auto;
+
+  @include vp-tablet {
+    padding: 0 30px;
+  }
+
+  @media (max-width: 426px) {
+    padding: 0 20px;
+  }
+}

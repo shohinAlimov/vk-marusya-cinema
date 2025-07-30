@@ -1,0 +1,23 @@
+@use "../../assets/styles/global/mixins.scss" as *;
+
+.slider {
+  &__swiper {
+    display: none;
+
+    @media (max-width: 1025px) {
+      display: block;
+      padding: 100px 50px;
+      margin: -100px 0; // компенсирует padding
+      overflow: hidden;
+    }
+
+    @include vp-tablet {
+      padding: 100px 30px;
+    }
+
+    @media (max-width: 500px) {
+      padding: 100px 20px;
+    }
+
+  }
+}
