@@ -17,8 +17,8 @@ import { TrailerModal } from "../TrailerModal/TrailerModal";
 import { motion } from "motion/react";
 
 /* Images & Icons */
-import FavouriteIcon from "../../assets/images/icon-favorite.svg?react";
-import RepeatIcon from "../../assets/images/icon-repeat.svg?react";
+import FavouriteIcon from "../../assets/icons/icon-favorite.svg?react";
+import RepeatIcon from "../../assets/icons/icon-repeat.svg?react";
 
 interface FilmBannerProps {
   movie: Movie;

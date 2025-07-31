@@ -1,8 +1,8 @@
 import { type ReactNode } from "react";
 import "./Modal.scss";
 
-import VkMarusyaLogoDark from "../../assets/images/vk-marusya-logo-dark.svg?react";
-import CloseIcon from "../../assets/images/icon-close.svg?react";
+import VkMarusyaLogoDark from "../../assets/icons/vk-marusya-logo-dark.svg?react";
+import CloseIcon from "../../assets/icons/icon-close.svg?react";
 
 import { Link } from "react-router-dom";
 

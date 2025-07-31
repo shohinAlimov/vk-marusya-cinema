@@ -10,11 +10,11 @@ import "./Header.scss";
 import { SearchDropdown } from "../../ui/SearchDropdown/SearchDropdown";
 
 /* Images & Icons */
-import VkMarusyaLogo from "../../assets/images/vk-marusya-logo.svg?react";
-import SearchIcon from "../../assets/images/icon-search.svg?react";
-import GenresIcon from "../../assets/images/icon-genres.svg?react";
-import UserIcon from "../../assets/images/icon-user.svg?react";
-import CloseIcon from "../../assets/images/icon-delete.svg?react";
+import VkMarusyaLogo from "../../assets/icons/vk-marusya-logo.svg?react";
+import SearchIcon from "../../assets/icons/icon-search.svg?react";
+import GenresIcon from "../../assets/icons/icon-genres.svg?react";
+import UserIcon from "../../assets/icons/icon-user.svg?react";
+import CloseIcon from "../../assets/icons/icon-delete.svg?react";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
 const Header: React.FC = () => {

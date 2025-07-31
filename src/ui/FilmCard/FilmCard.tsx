@@ -1,8 +1,8 @@
-import React from 'react';
-import type { Movie } from '../../types/movie';
-import './FilmCard.scss';
+import React from "react";
+import type { Movie } from "../../types/movie";
+import "./FilmCard.scss";
 
-import IconDelete from "../../assets/images/icon-delete.svg?react";
+import IconDelete from "../../assets/icons/icon-delete.svg?react";
 
 interface FilmCardProps {
   movie: Movie;
@@ -19,9 +19,8 @@ const FilmCard: React.FC<FilmCardProps> = ({
   index = 0,
   showRank = true,
   showDeleteButton = false,
-  onDelete
+  onDelete,
 }) => {
-
   const handleClick = () => {
     if (onClick) {
       onClick(movie.id);
@@ -35,13 +34,8 @@ const FilmCard: React.FC<FilmCardProps> = ({
   };
 
   return (
-    <div
-      className="film-card"
-      onClick={handleClick}
-    >
-      {showRank && (
-        <div className="film-card__rank">{index + 1}</div>
-      )}
+    <div className="film-card" onClick={handleClick}>
+      {showRank && <div className="film-card__rank">{index + 1}</div>}
 
       {showDeleteButton && (
         <button
@@ -59,8 +53,7 @@ const FilmCard: React.FC<FilmCardProps> = ({
         src={movie.posterUrl}
         alt={`Постер фильма "${movie.title}"`}
       />
-
-    </div >
+    </div>
   );
 };
 

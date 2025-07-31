@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import "./TrailerModal.scss"
+import React, { useState, useEffect, useRef } from "react";
+import "./TrailerModal.scss";
 
-import IconClose from "../../assets/images/icon-delete.svg?react";
-import IconPause from "../../assets/images/icon-pause.svg?react";
-import IconContinue from "../../assets/images/icon-continue.svg?react";
+import IconClose from "../../assets/icons/icon-delete.svg?react";
+import IconPause from "../../assets/icons/icon-pause.svg?react";
+import IconContinue from "../../assets/icons/icon-continue.svg?react";
 
 interface TrailerModalProps {
   isOpen: boolean;
@@ -14,7 +14,8 @@ interface TrailerModalProps {
 
 // 3. Извлечь video ID из YouTube URL
 const getYouTubeVideoId = (url: string): string | null => {
-  const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+  const regex =
+    /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
   const match = url.match(regex);
   return match ? match[1] : null;
 };
@@ -23,7 +24,7 @@ export const TrailerModal: React.FC<TrailerModalProps> = ({
   isOpen,
   onClose,
   youtubeUrl,
-  title
+  title,
 }) => {
   const [isPlaying, setIsPlaying] = useState(true);
   const [showControls, setShowControls] = useState(false);
@@ -66,24 +67,24 @@ export const TrailerModal: React.FC<TrailerModalProps> = ({
     if (!isOpen) return;
 
     const handleKeyPress = (event: KeyboardEvent) => {
-      if (event.code === 'Space' || event.key === ' ') {
+      if (event.code === "Space" || event.key === " ") {
         event.preventDefault();
         handleVideoClick();
-      } else if (event.code === 'Escape' || event.key === 'Escape') {
+      } else if (event.code === "Escape" || event.key === "Escape") {
         event.preventDefault();
         onClose();
       }
     };
 
     // Блокировка прокрутки
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
 
-    document.addEventListener('keydown', handleKeyPress);
+    document.addEventListener("keydown", handleKeyPress);
 
     return () => {
       // Восстанавливаем прокрутку
-      document.body.style.overflow = 'unset';
-      document.removeEventListener('keydown', handleKeyPress);
+      document.body.style.overflow = "unset";
+      document.removeEventListener("keydown", handleKeyPress);
     };
   }, [isOpen, isPlaying]);
 
@@ -106,8 +107,8 @@ export const TrailerModal: React.FC<TrailerModalProps> = ({
         return;
       }
 
-      const script = document.createElement('script');
-      script.src = 'https://www.youtube.com/iframe_api';
+      const script = document.createElement("script");
+      script.src = "https://www.youtube.com/iframe_api";
       script.async = true;
       document.head.appendChild(script);
 
@@ -115,9 +116,9 @@ export const TrailerModal: React.FC<TrailerModalProps> = ({
     };
 
     const initializePlayer = () => {
-      playerRef.current = new window.YT.Player('youtube-player', {
-        width: '960',
-        height: '540',
+      playerRef.current = new window.YT.Player("youtube-player", {
+        width: "960",
+        height: "540",
         videoId: videoId,
         playerVars: {
           autoplay: 1,
@@ -129,13 +130,13 @@ export const TrailerModal: React.FC<TrailerModalProps> = ({
           cc_load_policy: 0, // отключить субтитры
           iv_load_policy: 3, // отключить аннотации
           disablekb: 0, // отключить клавиатуру
-          playsinline: 1
+          playsinline: 1,
         },
         events: {
           onReady: (event: any) => {
             event.target.playVideo();
-          }
-        }
+          },
+        },
       });
     };
 
@@ -172,9 +173,17 @@ export const TrailerModal: React.FC<TrailerModalProps> = ({
     // 1. Компонент TrailerModal
     <div className="trailer-modal">
       <div className="trailer-modal__overlay" onClick={onClose}>
-        <div className="trailer-modal__content" onClick={e => e.stopPropagation()}>
+        <div
+          className="trailer-modal__content"
+          onClick={(e) => e.stopPropagation()}
+        >
           <button className="trailer-modal__close" onClick={onClose}>
-            <IconClose className='trailer-modal__close-icon' width={24} height={24} aria-hidden={true} />
+            <IconClose
+              className="trailer-modal__close-icon"
+              width={24}
+              height={24}
+              aria-hidden={true}
+            />
           </button>
 
           <div
@@ -182,12 +191,9 @@ export const TrailerModal: React.FC<TrailerModalProps> = ({
             onClick={handleVideoClick}
             onMouseEnter={handleMouseEnter}
             onMouseMove={handleMouseMove}
-            style={{ pointerEvents: 'auto', position: 'relative', zIndex: 999 }}
+            style={{ pointerEvents: "auto", position: "relative", zIndex: 999 }}
           >
-            <div
-              id="youtube-player"
-              style={{ pointerEvents: 'none' }}
-            ></div>
+            <div id="youtube-player" style={{ pointerEvents: "none" }}></div>
           </div>
 
           {/* Показать название при паузе */}
@@ -200,7 +206,12 @@ export const TrailerModal: React.FC<TrailerModalProps> = ({
                 className="trailer-modal__control-btn trailer-modal__control-btn--show"
                 onClick={handleVideoClick}
               >
-                <IconContinue className='trailer-modal__play-icon' width={40} height={40} aria-hidden={true} />
+                <IconContinue
+                  className="trailer-modal__play-icon"
+                  width={40}
+                  height={40}
+                  aria-hidden={true}
+                />
               </button>
             </>
           )}
@@ -208,14 +219,25 @@ export const TrailerModal: React.FC<TrailerModalProps> = ({
           {/* Кнопка паузы при воспроизведении */}
           {isPlaying && (
             <>
-              <div className={`trailer-modal__title ${showControls ? 'trailer-modal__title--show' : ''}`}>
+              <div
+                className={`trailer-modal__title ${
+                  showControls ? "trailer-modal__title--show" : ""
+                }`}
+              >
                 {title}
               </div>
               <button
-                className={`trailer-modal__control-btn ${showControls ? 'trailer-modal__control-btn--show' : ''}`}
+                className={`trailer-modal__control-btn ${
+                  showControls ? "trailer-modal__control-btn--show" : ""
+                }`}
                 onClick={handleVideoClick}
               >
-                <IconPause className='trailer-modal__play-icon' width={40} height={40} aria-hidden={true} />
+                <IconPause
+                  className="trailer-modal__play-icon"
+                  width={40}
+                  height={40}
+                  aria-hidden={true}
+                />
               </button>
             </>
           )}

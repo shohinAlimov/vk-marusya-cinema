@@ -1,26 +1,31 @@
-import React, { useState } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
-import { useFavorites } from '../../contexts/FavoriteContext';
-import { Navigate, useNavigate } from 'react-router-dom';
-import Loader from '../../ui/Loader/Loader';
-import './AccountPage.scss';
-import FilmCard from '../../ui/FilmCard/FilmCard';
+import React, { useState } from "react";
+import { useAuth } from "../../contexts/AuthContext";
+import { useFavorites } from "../../contexts/FavoriteContext";
+import { Navigate, useNavigate } from "react-router-dom";
+import Loader from "../../ui/Loader/Loader";
+import "./AccountPage.scss";
+import FilmCard from "../../ui/FilmCard/FilmCard";
 
-
-import IconFavorite from "../../assets/images/icon-favorite-settings.svg?react";
-import IconUser from "../../assets/images/icon-user.svg?react";
-import IconEmail from "../../assets/images/icon-email.svg?react";
-import useMediaQuery from '../../hooks/useMediaQuery';
-import Slider from '../../ui/Slider/Slider';
-import { SwiperSlide } from 'swiper/react';
+import IconFavorite from "../../assets/icons/icon-favorite-settings.svg?react";
+import IconUser from "../../assets/icons/icon-user.svg?react";
+import IconEmail from "../../assets/icons/icon-email.svg?react";
+import useMediaQuery from "../../hooks/useMediaQuery";
+import Slider from "../../ui/Slider/Slider";
+import { SwiperSlide } from "swiper/react";
 
 const AccountPage: React.FC = () => {
   const { user, logout, isLoading } = useAuth();
-  const { favorites, isLoading: favoritesLoading, toggleFavorite } = useFavorites();
-  const [activeTab, setActiveTab] = useState<'favorites' | 'settings'>('favorites');
+  const {
+    favorites,
+    isLoading: favoritesLoading,
+    toggleFavorite,
+  } = useFavorites();
+  const [activeTab, setActiveTab] = useState<"favorites" | "settings">(
+    "favorites"
+  );
   const navigate = useNavigate();
 
-  const isMobile = useMediaQuery('(max-width: 767px)')
+  const isMobile = useMediaQuery("(max-width: 767px)");
 
   if (isLoading) {
     return <Loader />;
@@ -34,7 +39,7 @@ const AccountPage: React.FC = () => {
     try {
       await logout();
     } catch (error) {
-      console.error('Logout failed:', error);
+      console.error("Logout failed:", error);
     }
   };
 
@@ -46,7 +51,7 @@ const AccountPage: React.FC = () => {
     try {
       await toggleFavorite(movieId);
     } catch (error) {
-      console.error('Error removing from favorites:', error);
+      console.error("Error removing from favorites:", error);
     }
   };
 
@@ -58,10 +63,17 @@ const AccountPage: React.FC = () => {
 
           <div className="account-page__tabs">
             <button
-              className={`account-page__tab-btn ${activeTab === 'favorites' ? 'account-page__tab-btn--active' : ''}`}
-              onClick={() => setActiveTab('favorites')}
+              className={`account-page__tab-btn ${
+                activeTab === "favorites" ? "account-page__tab-btn--active" : ""
+              }`}
+              onClick={() => setActiveTab("favorites")}
             >
-              <IconFavorite className='account-page__favorite-icon' width={24} height={24} aria-hidden={true} />
+              <IconFavorite
+                className="account-page__favorite-icon"
+                width={24}
+                height={24}
+                aria-hidden={true}
+              />
               {isMobile ? (
                 <span>Избранное</span>
               ) : (
@@ -69,10 +81,17 @@ const AccountPage: React.FC = () => {
               )}
             </button>
             <button
-              className={`account-page__tab-btn ${activeTab === 'settings' ? 'account-page__tab-btn--active' : ''}`}
-              onClick={() => setActiveTab('settings')}
+              className={`account-page__tab-btn ${
+                activeTab === "settings" ? "account-page__tab-btn--active" : ""
+              }`}
+              onClick={() => setActiveTab("settings")}
             >
-              <IconUser className='account-page__user-icon' width={24} height={24} aria-hidden={true} />
+              <IconUser
+                className="account-page__user-icon"
+                width={24}
+                height={24}
+                aria-hidden={true}
+              />
               {isMobile ? (
                 <span>Настройки</span>
               ) : (
@@ -82,7 +101,7 @@ const AccountPage: React.FC = () => {
           </div>
 
           <div className="account-page__tab-content">
-            {activeTab === 'favorites' && (
+            {activeTab === "favorites" && (
               <div className="account-page__favorites">
                 {favoritesLoading ? (
                   <Loader />
@@ -95,16 +114,18 @@ const AccountPage: React.FC = () => {
                         showRank={false}
                         showDeleteButton={true}
                         onDelete={() => handleRemoveFromFavorites(movie.id)}
-                        onClick={() => handleMovieClick(movie.id)} />
+                        onClick={() => handleMovieClick(movie.id)}
+                      />
                     ))}
                   </div>
-
                 ) : (
                   <div className="account-page__empty-favorites">
-                    <p className='account-page__note'>У вас пока нет избранных фильмов</p>
+                    <p className="account-page__note">
+                      У вас пока нет избранных фильмов
+                    </p>
                     <button
                       className="btn btn--primary "
-                      onClick={() => navigate('/')}
+                      onClick={() => navigate("/")}
                     >
                       Найти фильмы
                     </button>
@@ -113,26 +134,34 @@ const AccountPage: React.FC = () => {
               </div>
             )}
 
-            {activeTab === 'settings' && (
+            {activeTab === "settings" && (
               <div className="account-page__settings">
                 <div className="account-page__info">
                   <div className="account-page__field">
-                    <div className='account-page__field-logo'>
+                    <div className="account-page__field-logo">
                       {user.name.charAt(0)}
                       {user.surname.charAt(0)}
                     </div>
-                    <div className='account-page__field-info'>
-                      <span className="account-page__field-label">Имя Фамилия</span>
-                      <span className="account-page__field-value">{user.name} {user.surname}</span>
+                    <div className="account-page__field-info">
+                      <span className="account-page__field-label">
+                        Имя Фамилия
+                      </span>
+                      <span className="account-page__field-value">
+                        {user.name} {user.surname}
+                      </span>
                     </div>
                   </div>
                   <div className="account-page__field">
-                    <div className='account-page__field-logo'>
+                    <div className="account-page__field-logo">
                       <IconEmail width={24} height={24} aria-hidden={true} />
                     </div>
-                    <div className='account-page__field-info'>
-                      <span className="account-page__field-label">Электронная почта</span>
-                      <span className="account-page__field-value">{user.email}</span>
+                    <div className="account-page__field-info">
+                      <span className="account-page__field-label">
+                        Электронная почта
+                      </span>
+                      <span className="account-page__field-value">
+                        {user.email}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -153,18 +182,19 @@ const AccountPage: React.FC = () => {
       {favorites.length > 0 && (
         <Slider autoPlay={false}>
           {favorites.map((movie) => (
-            <SwiperSlide key={movie.id} className='top-movies__slide'>
+            <SwiperSlide key={movie.id} className="top-movies__slide">
               <FilmCard
                 movie={movie}
                 showRank={false}
                 showDeleteButton={true}
                 onDelete={() => handleRemoveFromFavorites(movie.id)}
-                onClick={() => handleMovieClick(movie.id)} />
+                onClick={() => handleMovieClick(movie.id)}
+              />
             </SwiperSlide>
           ))}
         </Slider>
       )}
-    </div >
+    </div>
   );
 };
 

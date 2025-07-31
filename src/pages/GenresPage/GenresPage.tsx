@@ -4,7 +4,7 @@ import { apiService } from "../../services/api";
 import GenresCard from "../../ui/GenresCard/GenresCard";
 import FilmCard from "../../ui/FilmCard/FilmCard";
 import type { Movie } from "../../types/movie";
-import IconChevron from "../../assets/images/icon-chevron.svg?react";
+import IconChevron from "../../assets/icons/icon-chevron.svg?react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../ui/Loader/Loader";
 import { motion } from "motion/react";

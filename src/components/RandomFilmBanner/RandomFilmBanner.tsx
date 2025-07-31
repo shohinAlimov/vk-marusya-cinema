@@ -19,12 +19,14 @@ export const RandomFilmBanner: React.FC = () => {
 
   return (
     <>
-      <FilmBanner
-        movie={movie}
-        onRefreshRequest={refetchMovie}
-        showRefresh={true}
-        onDetailsClick={handleMovieClick}
-      />
+      <div className="container">
+        <FilmBanner
+          movie={movie}
+          onRefreshRequest={refetchMovie}
+          showRefresh={true}
+          onDetailsClick={handleMovieClick}
+        />
+      </div>
     </>
   );
 };
