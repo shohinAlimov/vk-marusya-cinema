@@ -1,5 +1,5 @@
 /* Main Imports */
-import type React from "react"
+import type React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { AuthModal } from "../AuthModal/AuthModal";
@@ -7,24 +7,23 @@ import { useAuth } from "../../contexts/AuthContext";
 
 /* Styles & UI */
 import "./Header.scss";
-import { SearchDropdown } from '../../ui/SearchDropdown/SearchDropdown';
+import { SearchDropdown } from "../../ui/SearchDropdown/SearchDropdown";
 
 /* Images & Icons */
-import VkMarusyaLogo from '../../assets/images/vk-marusya-logo.svg?react';
-import SearchIcon from '../../assets/images/icon-search.svg?react';
-import GenresIcon from '../../assets/images/icon-genres.svg?react';
-import UserIcon from '../../assets/images/icon-user.svg?react';
-import CloseIcon from '../../assets/images/icon-delete.svg?react';
+import SearchIcon from "../../assets/images/icon-search.svg?react";
+import GenresIcon from "../../assets/images/icon-genres.svg?react";
+import UserIcon from "../../assets/images/icon-user.svg?react";
+import CloseIcon from "../../assets/images/icon-delete.svg?react";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
 const Header: React.FC = () => {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { user, isLoading } = useAuth();
 
-  const isTablet = useMediaQuery('(max-width: 1024px)');
-  const isMobile = useMediaQuery('(max-width: 500px)');
+  const isTablet = useMediaQuery("(max-width: 1024px)");
+  const isMobile = useMediaQuery("(max-width: 500px)");
   const isLoggedIn = !isLoading && user;
 
   useEffect(() => {
@@ -36,13 +35,13 @@ const Header: React.FC = () => {
   // Блокировка скролла при открытом полноэкранном поиске
   useEffect(() => {
     if (isSearchOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
 
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isSearchOpen]);
 
@@ -54,7 +53,7 @@ const Header: React.FC = () => {
 
   const handleSearchClose = () => {
     setIsSearchOpen(false);
-    setSearchQuery('');
+    setSearchQuery("");
   };
 
   const handleMobileSearchClick = () => {
@@ -67,7 +66,7 @@ const Header: React.FC = () => {
         <div className="container">
           <div className="header__wrapper">
             <Link className="header__logo-link" to="/">
-              <VkMarusyaLogo className="header__logo-icon" width={143} height={32} aria-hidden="true" />
+              VkMarusya{" "}
             </Link>
 
             <div className="header__center">
@@ -75,7 +74,9 @@ const Header: React.FC = () => {
                 <NavLink
                   to="/"
                   className={({ isActive }) =>
-                    `header__nav-link ${isActive ? 'header__nav-link--active' : ''}`
+                    `header__nav-link ${
+                      isActive ? "header__nav-link--active" : ""
+                    }`
                   }
                 >
                   Главная
@@ -83,7 +84,9 @@ const Header: React.FC = () => {
                 <NavLink
                   to="/genres"
                   className={({ isActive }) =>
-                    `header__nav-link ${isActive ? 'header__nav-link--active' : ''}`
+                    `header__nav-link ${
+                      isActive ? "header__nav-link--active" : ""
+                    }`
                   }
                 >
                   Жанры
@@ -93,7 +96,12 @@ const Header: React.FC = () => {
               {!isMobile && (
                 <div className="header__search-wrapper">
                   <div className="header__search">
-                    <SearchIcon className="header__search-icon" width={24} height={24} aria-hidden="true" />
+                    <SearchIcon
+                      className="header__search-icon"
+                      width={24}
+                      height={24}
+                      aria-hidden="true"
+                    />
                     <input
                       type="text"
                       placeholder="Поиск"
@@ -107,7 +115,7 @@ const Header: React.FC = () => {
                   {!isSearchOpen && (
                     <SearchDropdown
                       query={searchQuery}
-                      onClose={() => setSearchQuery('')}
+                      onClose={() => setSearchQuery("")}
                     />
                   )}
                 </div>
@@ -117,7 +125,9 @@ const Header: React.FC = () => {
             {isLoggedIn ? (
               <NavLink
                 className={({ isActive }) =>
-                  `header__user-link ${isActive ? 'header__user-link--active' : ''}`
+                  `header__user-link ${
+                    isActive ? "header__user-link--active" : ""
+                  }`
                 }
                 to="/account"
               >
@@ -140,7 +150,12 @@ const Header: React.FC = () => {
 
             <div className="header__actions">
               <Link className="header__actions-link" to="/genres">
-                <GenresIcon className="header__actions-icon" width={24} height={24} aria-hidden="true" />
+                <GenresIcon
+                  className="header__actions-icon"
+                  width={24}
+                  height={24}
+                  aria-hidden="true"
+                />
               </Link>
 
               <button
@@ -149,12 +164,22 @@ const Header: React.FC = () => {
                 aria-label="Открыть поисковую строку"
                 title="Поиск"
               >
-                <SearchIcon className="header__actions-icon" width={24} height={24} aria-hidden="true" />
+                <SearchIcon
+                  className="header__actions-icon"
+                  width={24}
+                  height={24}
+                  aria-hidden="true"
+                />
               </button>
 
               {isLoggedIn ? (
                 <Link className="header__btn header__btn-user" to="/account">
-                  <UserIcon className="header__actions-icon" width={24} height={24} aria-hidden="true" />
+                  <UserIcon
+                    className="header__actions-icon"
+                    width={24}
+                    height={24}
+                    aria-hidden="true"
+                  />
                 </Link>
               ) : (
                 <button
@@ -163,7 +188,12 @@ const Header: React.FC = () => {
                   aria-label="Открыть аккаунт"
                   title="Аккаунт"
                 >
-                  <UserIcon className="header__actions-icon" width={24} height={24} aria-hidden="true" />
+                  <UserIcon
+                    className="header__actions-icon"
+                    width={24}
+                    height={24}
+                    aria-hidden="true"
+                  />
                 </button>
               )}
             </div>
@@ -174,10 +204,18 @@ const Header: React.FC = () => {
       {/* Полноэкранный поиск */}
       {isTablet && isSearchOpen && (
         <div className="fullscreen-search">
-          <div className="fullscreen-search__overlay" onClick={handleSearchClose} />
+          <div
+            className="fullscreen-search__overlay"
+            onClick={handleSearchClose}
+          />
           <div className="fullscreen-search__header">
             <div className="fullscreen-search__input-wrapper">
-              <SearchIcon className="fullscreen-search__icon" width={24} height={24} aria-hidden="true" />
+              <SearchIcon
+                className="fullscreen-search__icon"
+                width={24}
+                height={24}
+                aria-hidden="true"
+              />
               <input
                 type="text"
                 placeholder="Поиск"
@@ -194,14 +232,10 @@ const Header: React.FC = () => {
                 <CloseIcon width={24} height={24} aria-hidden={true} />
               </button>
             </div>
-
           </div>
 
           <div className="fullscreen-search__results">
-            <SearchDropdown
-              query={searchQuery}
-              onClose={handleSearchClose}
-            />
+            <SearchDropdown query={searchQuery} onClose={handleSearchClose} />
           </div>
         </div>
       )}

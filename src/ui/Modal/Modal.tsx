@@ -1,10 +1,9 @@
-import { type ReactNode } from 'react';
-import './Modal.scss';
+import { type ReactNode } from "react";
+import "./Modal.scss";
 
-import VkMarusyaLogoDark from '../../assets/images/vk-marusya-logo-dark.svg?react';
-import CloseIcon from '../../assets/images/icon-close.svg?react';
+import CloseIcon from "../../assets/images/icon-close.svg?react";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 type ModalProps = {
   isOpen: boolean;
@@ -14,7 +13,13 @@ type ModalProps = {
   showLogo?: boolean;
 };
 
-const Modal = ({ isOpen, onClose, children, className = '', showLogo = true }: ModalProps) => {
+const Modal = ({
+  isOpen,
+  onClose,
+  children,
+  className = "",
+  showLogo = true,
+}: ModalProps) => {
   if (!isOpen) return null;
 
   return (
@@ -24,11 +29,16 @@ const Modal = ({ isOpen, onClose, children, className = '', showLogo = true }: M
         onClick={(e) => e.stopPropagation()}
       >
         <button className="modal__close-btn" onClick={onClose}>
-          <CloseIcon className="modal__close-icon" width={24} height={24} aria-hidden={true} />
+          <CloseIcon
+            className="modal__close-icon"
+            width={24}
+            height={24}
+            aria-hidden={true}
+          />
         </button>
         {showLogo && (
-          <Link className='modal__logo-link' to="/">
-            <VkMarusyaLogoDark className="modal__logo-icon" width={156} height={35} aria-hidden={true} />
+          <Link className="modal__logo-link" to="/">
+            VkMarusya
           </Link>
         )}
         {children}
@@ -37,4 +47,4 @@ const Modal = ({ isOpen, onClose, children, className = '', showLogo = true }: M
   );
 };
 
-export default Modal
+export default Modal;
