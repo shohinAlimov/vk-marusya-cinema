@@ -1,19 +1,20 @@
 /* Important Imports */
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 /* For Context */
-import { useAuth } from '../../contexts/AuthContext';
-import { useFavorites } from '../../contexts/FavoriteContext';
+import { useAuth } from "../../contexts/AuthContext";
+import { useFavorites } from "../../contexts/FavoriteContext";
 
 /* Types */
-import type { Movie } from '../../types/movie';
+import type { Movie } from "../../types/movie";
 
 /* Style & UI */
-import './FilmBanner.scss';
-import Modal from '../Modal/Modal';
-import Rating from '../Rating/Rating';
-import { TrailerModal } from '../TrailerModal/TrailerModal';
+import "./FilmBanner.scss";
+import Modal from "../Modal/Modal";
+import Rating from "../Rating/Rating";
+import { TrailerModal } from "../TrailerModal/TrailerModal";
 
+import { motion } from "motion/react";
 
 /* Images & Icons */
 import FavouriteIcon from "../../assets/images/icon-favorite.svg?react";
@@ -26,7 +27,7 @@ interface FilmBannerProps {
   showRefresh?: boolean;
   showDetails?: boolean;
   className?: string;
-  row?: boolean
+  row?: boolean;
 }
 
 export const FilmBanner: React.FC<FilmBannerProps> = ({
@@ -35,8 +36,8 @@ export const FilmBanner: React.FC<FilmBannerProps> = ({
   onRefreshRequest,
   showRefresh = false,
   showDetails = true,
-  className = '',
-  row = false
+  className = "",
+  row = false,
 }) => {
   const [favoriteError, setFavoriteError] = useState<string | null>(null);
   const [isFavoriteLoading, setIsFavoriteLoading] = useState(false);
@@ -54,7 +55,7 @@ export const FilmBanner: React.FC<FilmBannerProps> = ({
   // Обработчик для кнопки "Избранное"
   const handleFavoriteToggle = async () => {
     if (!user) {
-      setFavoriteError('Необходимо войти в систему для добавления в избранное');
+      setFavoriteError("Необходимо войти в систему для добавления в избранное");
       setIsModalOpen(true);
       return;
     }
@@ -62,33 +63,41 @@ export const FilmBanner: React.FC<FilmBannerProps> = ({
     try {
       await toggleFavorite(movie.id);
     } catch (error) {
-      setFavoriteError(error instanceof Error ? error.message : 'Ошибка при работе с избранным');
+      setFavoriteError(
+        error instanceof Error ? error.message : "Ошибка при работе с избранным"
+      );
     } finally {
       setIsFavoriteLoading(false);
     }
   };
 
   return (
-    <div className={`film-banner ${className}`}>
+    <motion.div
+      initial={{ opacity: 0, x: 200 }}
+      transition={{ duration: 0.5 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      className={`film-banner ${className}`}
+    >
       <div className="film-banner__wrapper">
-        <div className='film-banner__inner'>
+        <div className="film-banner__inner">
           <div className="film-banner__info">
             <div className="film-banner__overlay">
               <Rating movie={movie} />
+              <span className="film-banner__notes">{movie.releaseYear}</span>
               <span className="film-banner__notes">
-                {movie.releaseYear}
+                {movie.genres.join(", ")}
               </span>
-              <span className="film-banner__notes">
-                {movie.genres.join(', ')}
-              </span>
-              <span className="film-banner__notes">
-                {movie.runtime} мин
-              </span>
+              <span className="film-banner__notes">{movie.runtime} мин</span>
             </div>
             <h2 className="film-banner__title">{movie.title}</h2>
             <p className="film-banner__plot">{movie.plot}</p>
           </div>
-          <div className={`film-banner__actions ${row && ("film-banner__actions--row")}`}>
+          <div
+            className={`film-banner__actions ${
+              row && "film-banner__actions--row"
+            }`}
+          >
             <button
               className="btn btn--primary film-banner__btn-trailer"
               onClick={handleTrailerClick}
@@ -114,20 +123,31 @@ export const FilmBanner: React.FC<FilmBannerProps> = ({
             )}
 
             <button
-              className={`film-banner__btn ${isMovieFavorite ? 'film-banner__btn--active' : ''}`}
+              className={`film-banner__btn ${
+                isMovieFavorite ? "film-banner__btn--active" : ""
+              }`}
               onClick={handleFavoriteToggle}
               disabled={isFavoriteLoading}
-              aria-label={isMovieFavorite ? 'Удалить из избранного' : 'Добавить в избранное'}
+              aria-label={
+                isMovieFavorite
+                  ? "Удалить из избранного"
+                  : "Добавить в избранное"
+              }
             >
-              <FavouriteIcon className='film-banner__favorite-icon' width={24} height={24} />
+              <FavouriteIcon
+                className="film-banner__favorite-icon"
+                width={24}
+                height={24}
+              />
             </button>
             {favoriteError && isModalOpen && (
               <Modal
                 showLogo={false}
                 isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)} >
-                <h2 className='film-banner__error-title'>Войдите в систему</h2>
-                <p className='film-banner__error-value'>{favoriteError}</p>
+                onClose={() => setIsModalOpen(false)}
+              >
+                <h2 className="film-banner__error-title">Войдите в систему</h2>
+                <p className="film-banner__error-value">{favoriteError}</p>
               </Modal>
             )}
 
@@ -148,6 +168,6 @@ export const FilmBanner: React.FC<FilmBannerProps> = ({
           alt={`Постер фильма "${movie.title}"`}
         />
       </div>
-    </div >
+    </motion.div>
   );
 };

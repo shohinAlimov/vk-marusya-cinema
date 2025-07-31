@@ -1,13 +1,12 @@
+import React, { useState, useEffect } from "react";
+import type { Movie } from "../../types/movie";
+import { apiService } from "../../services/api";
+import "./TopMovies.scss";
+import Loader from "../../ui/Loader/Loader";
+import FilmCard from "../../ui/FilmCard/FilmCard";
 
-import React, { useState, useEffect } from 'react';
-import type { Movie } from '../../types/movie';
-import { apiService } from '../../services/api';
-import './TopMovies.scss';
-import Loader from '../../ui/Loader/Loader';
-import FilmCard from '../../ui/FilmCard/FilmCard';
-
-import { SwiperSlide } from 'swiper/react';
-import Slider from '../../ui/Slider/Slider';
+import { SwiperSlide } from "swiper/react";
+import Slider from "../../ui/Slider/Slider";
 
 interface TopMoviesProps {
   onMovieClick?: (movieId: number) => void;
@@ -25,7 +24,8 @@ export const TopMovies: React.FC<TopMoviesProps> = ({ onMovieClick }) => {
       const topMovies = await apiService.getTopMovies(10);
       setMovies(topMovies);
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Произошла ошибка';
+      const errorMessage =
+        err instanceof Error ? err.message : "Произошла ошибка";
       setError(errorMessage);
     } finally {
       setIsLoading(false);
@@ -52,21 +52,23 @@ export const TopMovies: React.FC<TopMoviesProps> = ({ onMovieClick }) => {
         <h2 className="top-movies__title">Топ 10 фильмов</h2>
         <div className="top-movies__grid">
           {movies.map((movie, index) => (
-            <FilmCard key={movie.id} movie={movie} index={index} onClick={handleMovieClick} />
+            <FilmCard
+              key={movie.id}
+              movie={movie}
+              index={index}
+              onClick={handleMovieClick}
+            />
           ))}
         </div>
       </div>
 
       <Slider>
         {movies.map((movie, index) => (
-          <SwiperSlide key={movie.id} className='top-movies__slide'>
-            <FilmCard
-              movie={movie}
-              index={index}
-              onClick={handleMovieClick} />
+          <SwiperSlide key={movie.id} className="top-movies__slide">
+            <FilmCard movie={movie} index={index} onClick={handleMovieClick} />
           </SwiperSlide>
         ))}
       </Slider>
-    </div >
+    </div>
   );
 };

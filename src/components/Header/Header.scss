@@ -33,7 +33,6 @@
   }
 
   &__logo {
-
     &-icon,
     &-link {
       width: 143px;
@@ -95,7 +94,7 @@
     }
 
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       bottom: 0;
       left: 0;
@@ -286,6 +285,11 @@
     align-items: center;
     gap: 16px;
     padding: 16px 20px 8px;
+    animation: fadeInRight 0.4s ease-out;
+
+    &.closing {
+      animation: fadeOutLeft 0.4s ease-out;
+    }
   }
 
   &__input-wrapper {
@@ -330,8 +334,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
-    & svg {}
   }
 
   &__results {
@@ -342,5 +344,27 @@
     @media (max-width: 500px) {
       padding: 0 20px;
     }
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeOutLeft {
+  from {
+    opacity: 1;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-50px);
   }
 }

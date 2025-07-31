@@ -1,13 +1,17 @@
-import { useState, useEffect } from 'react';
-import Modal from '../../ui/Modal/Modal';
-import { LoginForm } from '../AuthForm/LoginForm/LoginForm';
-import { RegisterForm } from '../AuthForm/RegisterForm/RegisterForm';
-import { SuccessMessage } from '../SuccessMessage/SuccessMessage';
-import { type AuthModalProps, type AuthMode } from '../../types/auth';
-import type { LoginFormData, RegisterFormData } from '../../validation/schemas';
-import { useAuth } from '../../contexts/AuthContext';
+import { useState, useEffect } from "react";
+import Modal from "../../ui/Modal/Modal";
+import { LoginForm } from "../AuthForm/LoginForm/LoginForm";
+import { RegisterForm } from "../AuthForm/RegisterForm/RegisterForm";
+import { SuccessMessage } from "../SuccessMessage/SuccessMessage";
+import { type AuthModalProps, type AuthMode } from "../../types/auth";
+import type { LoginFormData, RegisterFormData } from "../../validation/schemas";
+import { useAuth } from "../../contexts/AuthContext";
 
-export const AuthModal = ({ isOpen, onClose, defaultMode = 'login' }: AuthModalProps) => {
+export const AuthModal = ({
+  isOpen,
+  onClose,
+  defaultMode = "login",
+}: AuthModalProps) => {
   const [mode, setMode] = useState<AuthMode>(defaultMode);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -16,13 +20,13 @@ export const AuthModal = ({ isOpen, onClose, defaultMode = 'login' }: AuthModalP
   // Блокировка прокрутки при открытии модального окна
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
 
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isOpen]);
 
@@ -33,7 +37,9 @@ export const AuthModal = ({ isOpen, onClose, defaultMode = 'login' }: AuthModalP
     try {
       await login(data.email, data.password);
     } catch (error) {
-      setError(error instanceof Error ? error.message : 'Произошла ошибка при входе');
+      setError(
+        error instanceof Error ? error.message : "Произошла ошибка при входе"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -45,22 +51,30 @@ export const AuthModal = ({ isOpen, onClose, defaultMode = 'login' }: AuthModalP
 
     try {
       await register(data.name, data.surname, data.email, data.password);
-      setMode('success');
+      setMode("success");
     } catch (error) {
-      console.error('Ошибка регистрации:', error);
-      setError(error instanceof Error ? error.message : 'Произошла ошибка при регистрации');
+      console.error("Ошибка регистрации:", error);
+      setError(
+        error instanceof Error
+          ? error.message
+          : "Произошла ошибка при регистрации"
+      );
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleClose = () => {
-    onClose();
+    const searchElement = document.querySelector(".modal__content");
+    if (searchElement) {
+      searchElement.classList.add("closing");
+    }
     // Сброс состояния при закрытии модалки
     setTimeout(() => {
+      onClose();
       setMode(defaultMode);
       setError(null);
-    }, 300);
+    }, 350);
   };
 
   // Сброс ошибки при смене режима
@@ -71,7 +85,7 @@ export const AuthModal = ({ isOpen, onClose, defaultMode = 'login' }: AuthModalP
 
   return (
     <Modal isOpen={isOpen} onClose={handleClose}>
-      {mode === 'login' && (
+      {mode === "login" && (
         <LoginForm
           switchMode={handleModeSwitch}
           onSubmit={handleLogin}
@@ -80,7 +94,7 @@ export const AuthModal = ({ isOpen, onClose, defaultMode = 'login' }: AuthModalP
         />
       )}
 
-      {mode === 'register' && (
+      {mode === "register" && (
         <RegisterForm
           switchMode={handleModeSwitch}
           onSubmit={handleRegister}
@@ -89,11 +103,7 @@ export const AuthModal = ({ isOpen, onClose, defaultMode = 'login' }: AuthModalP
         />
       )}
 
-      {mode === 'success' && (
-        <SuccessMessage
-          switchMode={handleModeSwitch}
-        />
-      )}
+      {mode === "success" && <SuccessMessage switchMode={handleModeSwitch} />}
     </Modal>
   );
 };

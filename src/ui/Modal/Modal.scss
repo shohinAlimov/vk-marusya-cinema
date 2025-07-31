@@ -22,6 +22,11 @@
     border-radius: 24px;
     width: 100%;
     max-width: 420px;
+    animation: fadeInDown 0.4s ease-in-out;
+
+    &.closing {
+      animation: fadeOut 0.4s ease-in-out;
+    }
 
     @media (max-width: 550px) {
       max-width: 335px;
@@ -35,12 +40,12 @@
     justify-content: center;
     margin: 0 0 40px 0;
 
-    @media (max-width:550px) {
+    @media (max-width: 550px) {
       margin: 0 0 32px 0;
     }
 
     & svg {
-      @media (max-width:550px) {
+      @media (max-width: 550px) {
         width: 132px;
         height: 30px;
       }
@@ -90,6 +95,27 @@
       color: $color-black;
       transition: color 0.3s ease;
     }
+  }
+}
 
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-50px);
   }
 }

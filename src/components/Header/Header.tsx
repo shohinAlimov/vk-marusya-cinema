@@ -10,6 +10,7 @@ import "./Header.scss";
 import { SearchDropdown } from "../../ui/SearchDropdown/SearchDropdown";
 
 /* Images & Icons */
+import VkMarusyaLogo from "../../assets/images/vk-marusya-logo.svg?react";
 import SearchIcon from "../../assets/images/icon-search.svg?react";
 import GenresIcon from "../../assets/images/icon-genres.svg?react";
 import UserIcon from "../../assets/images/icon-user.svg?react";
@@ -45,6 +46,20 @@ const Header: React.FC = () => {
     };
   }, [isSearchOpen]);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isSearchOpen) {
+        handleSearchClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isSearchOpen]);
+
   const handleSearchFocus = () => {
     if (isTablet) {
       setIsSearchOpen(true);
@@ -52,8 +67,15 @@ const Header: React.FC = () => {
   };
 
   const handleSearchClose = () => {
-    setIsSearchOpen(false);
-    setSearchQuery("");
+    const searchElement = document.querySelector(".fullscreen-search__header");
+    if (searchElement) {
+      searchElement.classList.add("closing");
+    }
+
+    setTimeout(() => {
+      setIsSearchOpen(false);
+      setSearchQuery("");
+    }, 400);
   };
 
   const handleMobileSearchClick = () => {
@@ -66,7 +88,12 @@ const Header: React.FC = () => {
         <div className="container">
           <div className="header__wrapper">
             <Link className="header__logo-link" to="/">
-              VkMarusya
+              <VkMarusyaLogo
+                className="header__logo-icon"
+                width={143}
+                height={32}
+                aria-hidden="true"
+              />
             </Link>
 
             <div className="header__center">
@@ -208,7 +235,11 @@ const Header: React.FC = () => {
             className="fullscreen-search__overlay"
             onClick={handleSearchClose}
           />
-          <div className="fullscreen-search__header">
+          <div
+            className={`fullscreen-search__header ${
+              isSearchOpen ? "animate" : "closing"
+            }`}
+          >
             <div className="fullscreen-search__input-wrapper">
               <SearchIcon
                 className="fullscreen-search__icon"

@@ -1,6 +1,7 @@
 import { type ReactNode } from "react";
 import "./Modal.scss";
 
+import VkMarusyaLogoDark from "../../assets/images/vk-marusya-logo-dark.svg?react";
 import CloseIcon from "../../assets/images/icon-close.svg?react";
 
 import { Link } from "react-router-dom";
@@ -23,7 +24,7 @@ const Modal = ({
   if (!isOpen) return null;
 
   return (
-    <div className="modal__overlay" onClick={onClose}>
+    <div className={`modal__overlay`} onClick={onClose}>
       <div
         className={`modal__content ${className}`}
         onClick={(e) => e.stopPropagation()}
@@ -38,7 +39,12 @@ const Modal = ({
         </button>
         {showLogo && (
           <Link className="modal__logo-link" to="/">
-            VkMarusya
+            <VkMarusyaLogoDark
+              className="modal__logo-icon"
+              width={156}
+              height={35}
+              aria-hidden={true}
+            />
           </Link>
         )}
         {children}

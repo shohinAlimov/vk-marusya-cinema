@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import './GenresPage.scss';
-import { apiService } from '../../services/api';
-import GenresCard from '../../ui/GenresCard/GenresCard';
-import FilmCard from '../../ui/FilmCard/FilmCard';
-import type { Movie } from '../../types/movie';
+import React, { useEffect, useState } from "react";
+import "./GenresPage.scss";
+import { apiService } from "../../services/api";
+import GenresCard from "../../ui/GenresCard/GenresCard";
+import FilmCard from "../../ui/FilmCard/FilmCard";
+import type { Movie } from "../../types/movie";
 import IconChevron from "../../assets/images/icon-chevron.svg?react";
-import { useNavigate } from 'react-router-dom';
-import Loader from '../../ui/Loader/Loader';
+import { useNavigate } from "react-router-dom";
+import Loader from "../../ui/Loader/Loader";
+import { motion } from "motion/react";
 
 const MOVIES_PER_PAGE = 10;
 
@@ -31,7 +32,7 @@ const GenresPage: React.FC = () => {
         setGenres(genresData);
         setMovies(moviesData);
       } catch (error) {
-        console.error('Ошибка при загрузке жанров:', error);
+        console.error("Ошибка при загрузке жанров:", error);
       } finally {
         setIsLoading(false);
       }
@@ -42,14 +43,17 @@ const GenresPage: React.FC = () => {
 
   const fetchMoviesByGenre = async (genre: string, page: number = 1) => {
     try {
-      const moviesData = await apiService.getMoviesByGenre(genre, page, MOVIES_PER_PAGE);
+      const moviesData = await apiService.getMoviesByGenre(
+        genre,
+        page,
+        MOVIES_PER_PAGE
+      );
       return moviesData;
     } catch (error) {
-      console.error('Ошибка при загрузке фильмов по жанру:', error);
+      console.error("Ошибка при загрузке фильмов по жанру:", error);
       return [];
     }
   };
-
 
   const handleGenreClick = async (genre: string) => {
     setSelectedGenre(genre);
@@ -67,7 +71,7 @@ const GenresPage: React.FC = () => {
         setHasMoreMovies(false);
       }
     } catch (error) {
-      console.error('Ошибка при загрузке фильмов:', error);
+      console.error("Ошибка при загрузке фильмов:", error);
       setDisplayedMovies([]);
       setHasMoreMovies(false);
     } finally {
@@ -85,7 +89,7 @@ const GenresPage: React.FC = () => {
       const newMovies = await fetchMoviesByGenre(selectedGenre, nextPage);
 
       if (newMovies.length > 0) {
-        setDisplayedMovies(prev => [...prev, ...newMovies]);
+        setDisplayedMovies((prev) => [...prev, ...newMovies]);
         setCurrentPage(nextPage);
 
         // Если получили меньше фильмов чем MOVIES_PER_PAGE, значит это последняя страница
@@ -96,7 +100,7 @@ const GenresPage: React.FC = () => {
         setHasMoreMovies(false);
       }
     } catch (error) {
-      console.error('Ошибка при загрузке дополнительных фильмов:', error);
+      console.error("Ошибка при загрузке дополнительных фильмов:", error);
       setHasMoreMovies(false);
     } finally {
       setIsLoadingMore(false);
@@ -119,7 +123,13 @@ const GenresPage: React.FC = () => {
   }
 
   return (
-    <div className="genres-page">
+    <motion.div
+      initial={{ opacity: 0, x: 200 }}
+      transition={{ duration: 0.5 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      className="genres-page"
+    >
       <div className="container">
         {!selectedGenre && (
           <>
@@ -140,7 +150,12 @@ const GenresPage: React.FC = () => {
         {selectedGenre && (
           <>
             <h1 className="genres-page__back-link" onClick={handleBackToGenres}>
-              <IconChevron className="genres-page__back-icon" width={40} height={40} aria-hidden={true} />
+              <IconChevron
+                className="genres-page__back-icon"
+                width={40}
+                height={40}
+                aria-hidden={true}
+              />
               {selectedGenre}
             </h1>
 
@@ -166,7 +181,7 @@ const GenresPage: React.FC = () => {
                       onClick={handleLoadMore}
                       disabled={isLoadingMore}
                     >
-                      {isLoadingMore ? 'Загрузка...' : 'Показать ещё'}
+                      {isLoadingMore ? "Загрузка..." : "Показать ещё"}
                     </button>
                   </div>
                 )}
@@ -175,7 +190,7 @@ const GenresPage: React.FC = () => {
           </>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
