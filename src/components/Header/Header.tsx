@@ -66,7 +66,7 @@ const Header: React.FC = () => {
         <div className="container">
           <div className="header__wrapper">
             <Link className="header__logo-link" to="/">
-              VkMarusya{" "}
+              VkMarusya
             </Link>
 
             <div className="header__center">
