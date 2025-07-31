@@ -1,69 +1,165 @@
-# React + TypeScript + Vite
+# 🎬 ВК Маруся Cinema (https://shohinalimov.github.io/vk-marusya-cinema/)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Бета-версия популярного стримингового сервиса от ВК Маруси - платформы для поиска фильмов и управления избранным.
 
-Currently, two official plugins are available:
+## 📋 Описание проекта
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Cinema Guide - это современное веб-приложение, которое позволяет пользователям:
+- 🎲 Выбирать случайные фильмы для просмотра
+- 🏆 Просматривать топ-10 фильмов по IMDb-рейтингу
+- 🎭 Исследовать фильмы по жанрам
+- 🔍 Искать фильмы по названию
+- ❤️ Добавлять фильмы в избранное
+- 👤 Управлять личным аккаунтом
+- 🎥 Просматривать трейлеры
 
-## Expanding the ESLint configuration
+## 🚀 Технологический стек
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Frontend Framework:** React 18
+- **Language:** TypeScript
+- **Build Tool:** Vite
+- **State Management:** React Context API
+- **Routing:** React Router
+- **HTTP Client:** Axios
+- **Styling:** SCSS
+- **Authentication:** Session-based (Cookies)
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 📁 Структура проекта
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── assets/
+│   ├── icons/          # Иконки
+│   ├── styles/         # Стили
+|
+├── components/         # Переиспользуемые компоненты
+│   ├── AuthForm/       # Формы регистрация и логина 
+│   ├── AuthModal/      # Навигация для форм
+│   ├── Footer/         # Футер
+│   ├── Header/         # Шапка страницы
+│   └── ...
+|
+├── lib/                   # Конфигурации и общие утилиты
+|   └── queryClient.ts     # Конфигурация React Query 
+|
+├── pages/              # Страницы приложения
+│   ├── AccountPage/    # Страница аккаунта
+│   ├── GenresPage/     # Страница жанров
+│   ├── HomePage/       # Главная страница
+│   └── MoviePage/      # Страница фильма
+|
+├── context/                     # React Context провайдеры
+│   ├── AuthContext.tsx          # Контекст авторизации
+│   ├── FavoritesContext.tsx     # Контекст избранных фильмов
+│   └── ...
+|
+├── services/           # API сервисы
+│   └── api.ts          # API
+|
+├── types/              # TypeScript типы
+├── ui/                 # Часто переиспользуемые элементы
+├── validation/         # Схемы валидаций
+└── hooks/              # Кастомные хуки
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## ⚙️ Установка и запуск
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Требования
+- Node.js версии 16 или выше
+- npm или yarn
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Установка зависимостей
+```bash
+npm install
+# или
+yarn install
 ```
+
+### Запуск в режиме разработки
+```bash
+npm run dev
+# или
+yarn dev
+```
+
+Приложение будет доступно по адресу `http://localhost:5173`
+
+### Сборка для продакшена
+```bash
+npm run build
+# или
+yarn build
+```
+
+### Предварительный просмотр сборки
+```bash
+npm run preview
+# или
+yarn preview
+```
+
+## 🌐 API
+
+Приложение использует внешний API для получения данных о фильмах.
+
+**Base URL:** `https://cinemaguide.skillbox.cc`
+
+**Документация API:** [https://cinemaguide.skillbox.cc/docs/](https://cinemaguide.skillbox.cc/docs/)
+
+### Основные эндпоинты:
+- `GET /movie/top10` - Топ-10 фильмов
+- `GET /movie/random` - Случайный фильм
+- `GET /genres` - Список жанров
+- `GET /movie?genre={genre}` - Фильмы по жанру
+- `GET /movie/{id}` - Детали фильма
+- `POST /auth/login` - Авторизация
+- `POST /auth/register` - Регистрация
+- `GET /favorites` - Избранные фильмы
+- `POST /favorites` - Добавить в избранное
+
+## 🔐 Авторизация
+
+Приложение использует session-based авторизацию с cookies:
+- При успешной авторизации сервер устанавливает cookie с информацией о сессии
+- Все запросы отправляются с `credentials: 'include'`
+- Сессия автоматически продлевается при активности пользователя
+- При выходе cookie удаляются с сервера и клиента
+
+## 📱 Функциональность
+
+### Главная страница
+- **Случайный фильм:** Отображение случайного фильма с возможностью обновления
+- **Топ-10:** Лучшие фильмы по IMDb-рейтингу
+
+### Страницы жанров
+- **Список жанров:** Карточки с различными киножанрами
+- **Фильмы жанра:** Фильтрованный список с пагинацией (по 10 фильмов)
+
+### Страница фильма
+- Подробная информация о фильме
+- Просмотр трейлера в модальном окне
+- Добавление/удаление из избранного (для авторизованных пользователей)
+
+### Аккаунт пользователя
+- Личная информация
+- Список избранных фильмов
+- Возможность выхода из аккаунта
+
+### Поиск
+- Поиск фильмов по названию через модальное окно
+
+## 🎨 UI/UX особенности
+
+- **Адаптивный дизайн:** Поддержка всех устройств
+- **Модальные окна:** Для авторизации, поиска и просмотра трейлеров
+- **Lazy Loading:** Подгрузка контента по требованию
+- **Smooth анимации:** Плавные переходы между состояниями
+- **Error Handling:** Обработка ошибок с уведомлениями
+
+## 📄 Лицензия
+
+Проект разработан в рамках учебного курса "React.js" от Skillbox.
+
+## 👥 Команда разработки
+
+Проект создан как финальная работа курса "React.js" для демонстрации навыков разработки современных веб-приложений на React с TypeScript.
